@@ -7,13 +7,12 @@
 # documentation.
 
 name: Test Automation WorkFlow
-
 on:
-schedule:
-   - cron:'30 14 * * *'
-  push:
+ schedule:
+  - cron: '30 14 * * *'
+ push:
     branches: [ "master" ]
-pull_request:
+ pull_request:
     branches: [ "master" ]
 
 jobs:
