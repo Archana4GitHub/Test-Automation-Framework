@@ -15,7 +15,6 @@ import com.utility.LoggerUtility;
 
 @Listeners({ com.ui.listeners.TestListener.class })
 public class LoginTest extends TestBase {
-	HomePage homePage;
 	Logger logger = LoggerUtility.getLogger(this.getClass());
 
 	@Test(description = "Verifies with the valid user is able to login into the application", groups = { "e2e",
