@@ -28,8 +28,13 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
+
+    - name: Verify test data file
+      run: |
+         ls
+         ls testData   
     - name: Running Test Automation Framework with Maven
-      run: mvn test -X -Dbrowser=chrome -DisLambdaTest=true -DisHeadless 
+      run: mvn test -X -Dbrowser=chrome -DisLambdaTest=true -DisHeadless=true
     - name: Upload Test logs Artifact
        if:always()
       uses: actions/upload-artifact@v7.0.1
