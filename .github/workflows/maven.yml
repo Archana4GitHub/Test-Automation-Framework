@@ -22,6 +22,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    - name: Debug repository files
+      run: |
+       pwd
+       echo "Current directory:"
+       ls -la
+       echo "Contents of testData:"
+       ls -la testData || echo "testData folder not found"
+       echo "Find JSON files:"
+       find . -name "*.json"
     - name: Set up JDK 11
       uses: actions/setup-java@v4
       with:
