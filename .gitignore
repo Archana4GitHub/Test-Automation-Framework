@@ -1,6 +1,34 @@
-/target/
-/test-output/
-/screenshots/
-/logs/
-/report.html
+# Eclipse workspace
+.metadata/
+*.metadata
 
+# Maven
+target/
+**/target/
+
+# Reports
+test-output/
+**/test-output/
+report.html
+
+# Logs
+logs/
+**/logs/
+
+# Screenshots
+screenshots/
+**/screenshots/
+
+# Temporary
+*.tmp
+*.log
+
+# Other practice projects
+Automation_Practice_Assignment/
+dealer-tools-ordersing-system/
+Feb2026SeleniumSessions/
+InterviewProject/
+Java_Basics/
+Maven_Project/
+StudentManagementSystem/
+java-selenium-sample/
