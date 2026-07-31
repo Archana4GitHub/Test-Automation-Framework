@@ -1,18 +1,15 @@
 package com.ui.pages;
 
+import static com.constants.Env.QA;
+
 import org.apache.logging.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
 
 import com.constants.Browser;
-import static com.constants.Env.*;
 import com.utility.BrowserUtility;
 import com.utility.JSONUtility;
 import com.utility.LoggerUtility;
-
-import static com.utility.PropertiesUtil.*;
 
 public final class HomePage extends BrowserUtility {
 	Logger logger = LoggerUtility.getLogger(this.getClass());
@@ -37,6 +34,9 @@ public final class HomePage extends BrowserUtility {
 	}
 
 	public void quit() {
-		
+		if (getDriver() != null) {
+			getDriver().quit();
+
+		}
 	}
 }

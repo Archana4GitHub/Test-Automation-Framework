@@ -3,8 +3,6 @@ package com.utility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.ui.tests.LoginTest;
-
 public class LoggerUtility {
 
 

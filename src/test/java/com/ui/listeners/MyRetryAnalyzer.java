@@ -5,7 +5,6 @@ import org.testng.ITestResult;
 
 import com.constants.Env;
 import com.utility.JSONUtility;
-import com.utility.PropertiesUtil;
 
 public class MyRetryAnalyzer implements IRetryAnalyzer {
 

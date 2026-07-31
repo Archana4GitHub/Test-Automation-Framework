@@ -23,7 +23,7 @@ public class LoginDataProvider {
 		File testDataFile = new File(
 				System.getProperty("user.dir") + File.separator + "testData" + File.separator + "logindata.json");
 		FileReader fileReader = new FileReader(testDataFile);
-		TestData data = gson.fromJson(fileReader, TestData.class); // seserialization
+		TestData data = gson.fromJson(fileReader, TestData.class); // Deserialization
 
 		List<Object[]> dataToReturn = new ArrayList<Object[]>();
 		for (User user : data.getData()) {
