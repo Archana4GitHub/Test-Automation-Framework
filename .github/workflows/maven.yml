@@ -10,83 +10,79 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
 
-    - uses: actions/checkout@v4
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
 
-    - name: Set up JDK 21
-      uses: actions/setup-java@v4
-      with:
-        java-version: '21'
-        distribution: 'temurin'
-        cache: maven
+      - name: Check Environment
+        run: |
+          java -version
+          google-chrome --version
+          pwd
+          ls -la
 
-    - name: Check Environment
-      run: |
-        java -version
-        google-chrome --version
-        pwd
-        ls -la
+      - name: Verify Test Data
+        run: |
+          find . -name "*.json"
 
-    - name: Verify Test Data
-      run: |
-        find . -name "*.json"
+      - name: Run Selenium Tests
+        run: |
+          mvn test -Dbrowser=chrome -DisHeadless=true
 
-    - name: Run Selenium Tests
-      run: |
-        mvn test -Dbrowser=chrome -DisHeadless=true
+      - name: Upload Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: logs
+          path: logs/
 
-    - name: Upload Logs
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: logs
-        path: logs/
+      - name: Upload HTML Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-report
+          path: report.html
 
-    - name: Upload Reports
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: report
-        path: report.html
+      - name: Test Execution Status
+        if: always()
+        run: echo "Test Execution Completed"
 
+      - name: Prepare GitHub Pages
+        if: always()
+        run: |
+          mkdir -p public/extent-reports
 
-    - name: Upload HTML Report as Artifact
-      if: always()
-      uses: actions/upload-artifact@v4
-      with:
-        name: html-report
-        path: report.html
+          echo "Project files:"
+          ls -la
 
-    - name: Test Execution Status
-      if: always()
-      run: echo "Test Execution Completed"
+          if [ -f report.html ]; then
+            cp report.html public/extent-reports/index.html
+            echo "Report copied successfully."
+          else
+            echo "report.html not found!"
+            find . -name "*.html"
+            exit 1
+          fi
 
-    - name: Copy Report to gh-pages Folder
-      if: always() 
+          if [ -d screenshots ]; then
+            cp -R screenshots public/extent-reports/
+          fi
 
-      run: |
-        mkdir -p public/extent -reports
-        cp -R report.html public/extent-reports/
-        cp -R screenshots/public/extent-reports/screenshots/
-        ls -l
-        
-    - name: Deploy
-      if: always()
-      uses: JamesIves/github-pages-deploy-action@v4
-      with:
-        folder: public/extent-reports/
-        token: ${{ secrets.PAT1234 }}
-        clean: true
+          ls -R public
 
-        
-
-        
-
-        
-    
-
-        
+      - name: Deploy to GitHub Pages
+        if: always()
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: public/extent-reports
+          token: ${{ secrets.PAT1234 }}
+          clean: true
