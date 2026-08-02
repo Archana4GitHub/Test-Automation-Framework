@@ -21,6 +21,8 @@ public final class HomePage extends BrowserUtility {
 
 	public HomePage(Browser chrome, boolean isHeadless) {
 		super(chrome, isHeadless); // To call the Parent class constructor from the child constructor
+		maximizeWindow();
+
 		goToWebsite("https://automationpractice.techwithjatin.com/");
 	}
 

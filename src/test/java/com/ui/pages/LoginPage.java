@@ -11,20 +11,33 @@ public final class LoginPage extends BrowserUtility {
 		super(driver);
 	}
 	
-	private static final By Email_Text_Box_Locator=By.id("email");
-	private static final By Password_Text_Box_Locator=By.id("passwd");
-	private static final By Submit_Button_Locator=By.id("SubmitLogin");
+	private static final By EMAIL_TEXT_BOX_LOCATOR=By.id("email");
+	private static final By PASSWORD_TEXT_BOX_LOCATOR=By.id("passwd");
+	private static final By SUBMIT_BUTTON_LOCATOR=By.id("SubmitLogin");
+	private static final By ERROR_MESSAGE_LOCATOR=By.xpath("//div[contains(@class,'alert')]/ol/li");
+
+	
 	
 	public MyAccountPage  doLoginWith(String emailAddress,String password) {
-		enterText(Email_Text_Box_Locator,emailAddress);
-		enterText(Password_Text_Box_Locator,password);
-		clickOn(Submit_Button_Locator);
+		enterText(EMAIL_TEXT_BOX_LOCATOR,emailAddress);
+		enterText(PASSWORD_TEXT_BOX_LOCATOR,password);
+		clickOn(SUBMIT_BUTTON_LOCATOR);
 		MyAccountPage myAccountPage=new MyAccountPage(getDriver());
-		return myAccountPage;
-		
-		
+		return myAccountPage;		
 	}
 	
+	public LoginPage  doLoginWithInvalidCredentials(String emailAddress,String password) {
+		
+		enterText(EMAIL_TEXT_BOX_LOCATOR,emailAddress);
+		enterText(PASSWORD_TEXT_BOX_LOCATOR,password);
+		clickOn(SUBMIT_BUTTON_LOCATOR);
+		LoginPage loginPage=new LoginPage(getDriver());
+		return loginPage ;		
+	}
+	
+	public String getErrorMessage() {
+		return getVisibleText(ERROR_MESSAGE_LOCATOR);
+	}
 	
 	
 

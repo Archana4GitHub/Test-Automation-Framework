@@ -23,8 +23,8 @@ public class TestBase {
 	@Parameters({ "browser", "isLambdaTest", "isHeadless" })
 	@BeforeMethod(description = "Load the Homepage of the website")
 
-	public void setup(@Optional("chrome") String browser, @Optional("false") boolean isLambdaTest,
-			@Optional("true") boolean isHeadless, ITestResult result) {
+	public void setup(ITestResult result,@Optional("chrome") String browser, @Optional("false") boolean isLambdaTest,
+			@Optional("false") boolean isHeadless) {
 		logger.info("========== SETUP START ==========");
 
 		this.isLambdaTest = isLambdaTest;
@@ -42,6 +42,10 @@ public class TestBase {
 
 	public BrowserUtility getInstance() {
 		return homePage;
+	}
+
+	public WebDriver getDriver() {
+		return homePage.getDriver();
 	}
 
 	@AfterMethod(description = "Quit the Browser Session")
